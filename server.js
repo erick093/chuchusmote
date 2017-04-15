@@ -3,5 +3,5 @@ var app = express();
 
 app.listen(300, function(err){
   if(err) throw err;
-  console.log("Server is Runnnig");
+  console.log("Server is Runnnig on port 3000");
 });
