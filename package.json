@@ -9,6 +9,8 @@
   "author": "Erick Escobar",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.15.2"
+    "express": "^4.15.2",
+    "lodash": "^4.17.4",
+    "morgan": "^1.8.1"
   }
 }
