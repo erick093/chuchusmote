@@ -1,8 +1,13 @@
+const http = require('http');
 const express = require('express');
 const hbs = require('hbs');
 const fs = require('fs');
+const socketIO = require('socket.io');
+
 var morgan=require('morgan');
 var app = express();
+var server = http.createServer(app);
+var io = socketIO(server);
 var mqtt =require('mqtt');
 var client = mqtt.connect('mqtt://10.0.0.30:8883');
 //Middleware
@@ -37,7 +42,15 @@ app.get('/about', (req,res) => {
   });
 });
 
-app.listen(3000, function(err){
+io.on('connection', (socket) => {
+  console.log('New user connected to home');
+  socket.on('disconnect', () => {
+    console.log('User was disconected');
+  });
+
+});
+
+server.listen(3000, function(err){
   if(err) throw err;
   console.log("Server is Runnnig on port 3000");
 
