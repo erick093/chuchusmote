@@ -30,8 +30,8 @@ hbs.registerHelper('GetCurrentYear', () =>{
 
 app.get('/',(req,res) => {
   res.render('home.hbs',{
-    pageTitle: 'Home Page',
-    welcomeMessage: 'Fuck your LIFE!!'
+    pageTitle: 'Chuchusmote: Sun Data Logger',
+    welcomeMessage: 'Universidad Privada Boliviana'
 
   });
 });
@@ -44,6 +44,9 @@ app.get('/about', (req,res) => {
 
 io.on('connection', (socket) => {
   console.log('New user connected to home');
+
+
+
   socket.on('disconnect', () => {
     console.log('User was disconected');
   });
@@ -60,10 +63,16 @@ server.listen(3000, function(err){
 
 //MQTT Handling
 client.on('connect', function () {
-  client.subscribe('hello');
+  client.subscribe('voltage');
 });
+
 client.on('message', function (topic, message) {
   // message is Buffer 
+  console.log(topic.toString());
   console.log(message.toString());
-  client.end();
+  io.emit('mqtt',{
+    'topic':String(topic),
+    'message':String(message)
+  });
+  //client.end();
 });
