@@ -3,21 +3,23 @@
   <head>
     <meta charset="utf-8">
     <title> HomePage  </title>
+    <script src="/socket.io/socket.io.js"></script>
+     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="/js/index.js"></script>
+    <script src="/js/charting.js"></script>
   </head>
   <body>
+
     {{> header}}
     <p> {{welcomeMessage}}</p>
+    <div class="content">
+        <h1>Voltage Level</h1>
+          <div id="curve_chart" style="width: 900px; height: 500px"></div>
+    </div>
+
+
     {{> footer}}
-    <script src="/socket.io/socket.io.js"></script>
-    <script>
-      var socket = io();
-      socket.on('connect', () =>{
-        console.log('Connected to server');
-      });
-      socket.on('disconnect', () =>{
-        console.log('Disconnected from server');
-      });
-    </script>
+
   </body>
 
 </html>
