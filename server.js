@@ -10,6 +10,7 @@ var server = http.createServer(app);
 var io = socketIO(server);
 var mqtt =require('mqtt');
 var client = mqtt.connect('mqtt://10.0.0.30:8883');
+var client2 = mqtt.connect('mqtt://10.0.0.30:8883');
 //Middleware
 app.use(morgan('dev'));
 hbs.registerPartials(__dirname + '/views/partials');
@@ -63,16 +64,33 @@ server.listen(3000, function(err){
 
 //MQTT Handling
 client.on('connect', function () {
-  client.subscribe('voltage');
+  client.subscribe('panel1/voltage');
 });
 
 client.on('message', function (topic, message) {
   // message is Buffer 
-  console.log(topic.toString());
-  console.log(message.toString());
-  io.emit('mqtt',{
-    'topic':String(topic),
-    'message':String(message)
-  });
-  //client.end();
+  //console.log(topic.toString());
+  //console.log(message.toString());
+  // io.on('connection',(socket) =>{
+  //
+  // })
+      io.emit('panel1/voltage',{
+        'topic':String(topic),
+        'message':String(message)
+      });
+});
+
+client2.on('connect', function () {
+  client2.subscribe('panel1/amp');
+});
+
+client2.on('message', function (topic, message) {
+  // message is Buffer 
+//   console.log(topic.toString());
+//   console.log(message.toString());
+
+      io.emit('panel1/amp',{
+        'topic':String(topic),
+        'message':String(message)
+      });
 });

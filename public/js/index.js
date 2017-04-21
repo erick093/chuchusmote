@@ -6,8 +6,8 @@ socket.on('disconnect', () =>{
   console.log('Disconnected from server');
 });
 
-socket.on('mqtt', (mqtt_data)  =>{
-
-  console.log(mqtt_data.topic);
-  console.log(mqtt_data.message );
-});
+// socket.on('panel1/voltage', (mqtt_data1)  =>{
+//
+//   console.log(mqtt_data1.topic);
+//   console.log(mqtt_data1.message );
+// });
